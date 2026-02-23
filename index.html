@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
     <!-- HilltopAds Verification Code -->
     <meta name="6fedacbba332ed7faf409aa3353180401f99cbb6" content="6fedacbba332ed7faf409aa3353180401f99cbb6" />
-    
+
     <!-- Monetag Ads Verification Code -->
     <meta name="monetag" content="38007a77501da08e5fb83dbeb9bc8c24">
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gmail Father - Premium Clean Edition</title>
-    
+
     <!-- External Resources -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Manrope:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script id="tailwind-config">
@@ -26,7 +29,7 @@
                         "primary-dark": "#10b981",
                         "accent-gold": "#fbbf24",
                         "background-light": "#ffffff",
-                        "surface-light": "#f0fdfa", 
+                        "surface-light": "#f0fdfa",
                         "border-light": "#ccfbf1",
                     },
                     fontFamily: { "display": ["Manrope", "Hind Siliguri", "sans-serif"] }
@@ -34,6 +37,9 @@
             }
         }
     </script>
+
+    <!-- Monetag Multitag -->
+    <script src="https://quge5.com/88/tag.min.js" data-zone="213848" async data-cfasync="false"></script>
 
     <style type="text/tailwindcss">
         body { font-family: 'Manrope', 'Hind Siliguri', sans-serif; background-color: #ffffff; -webkit-tap-highlight-color: transparent; }
@@ -48,10 +54,12 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #34d399; border-radius: 10px; }
     </style>
 </head>
+
 <body class="bg-white text-slate-900 min-h-screen select-none">
 
     <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
+    <div id="loading-screen"
+        class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
         <div class="flex flex-col items-center gap-4">
             <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
             <p class="text-primary text-xs font-bold uppercase tracking-widest animate-pulse">Gmail Father</p>
@@ -62,8 +70,10 @@
     <div id="auth-shell" class="hidden min-h-screen flex flex-col items-center justify-center p-6 bg-surface-light">
         <div class="w-full max-w-[420px] space-y-8 animate-in fade-in">
             <div class="text-center space-y-4">
-                <div class="w-24 h-24 mx-auto rounded-3xl overflow-hidden shadow-xl border-4 border-white relative group">
-                    <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg" alt="Logo" class="w-full h-full object-cover">
+                <div
+                    class="w-24 h-24 mx-auto rounded-3xl overflow-hidden shadow-xl border-4 border-white relative group">
+                    <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg" alt="Logo"
+                        class="w-full h-full object-cover">
                 </div>
                 <h1 class="text-3xl font-black text-primary">Gmail Father</h1>
                 <p class="text-slate-500 text-sm font-medium">আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ</p>
@@ -71,8 +81,9 @@
 
             <div class="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-border-light">
                 <h2 id="auth-title" class="text-2xl font-bold text-center mb-8 text-slate-800">লগইন করুন</h2>
-                
-                <div id="auth-error" class="hidden mb-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm flex gap-2">
+
+                <div id="auth-error"
+                    class="hidden mb-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm flex gap-2">
                     <i data-lucide="alert-circle" class="shrink-0 w-5 h-5"></i>
                     <p id="error-message"></p>
                 </div>
@@ -80,28 +91,37 @@
                 <form id="auth-form" class="space-y-5">
                     <div id="signup-fields" class="hidden space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-400 ml-1">আপনার নাম</label>
-                        <input id="auth-name" type="text" class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all" placeholder="নাম লিখুন">
+                        <input id="auth-name" type="text"
+                            class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all"
+                            placeholder="নাম লিখুন">
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-400 ml-1">ইমেইল ঠিকানা</label>
-                        <input id="auth-email" type="email" required class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all" placeholder="example@mail.com">
+                        <input id="auth-email" type="email" required
+                            class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all"
+                            placeholder="example@mail.com">
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-400 ml-1">পাসওয়ার্ড</label>
                         <div class="relative">
-                            <input id="auth-password" type="password" required class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all" placeholder="••••••••">
-                            <button type="button" onclick="window.togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                            <input id="auth-password" type="password" required
+                                class="w-full h-14 px-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-primary font-bold transition-all"
+                                placeholder="••••••••">
+                            <button type="button" onclick="window.togglePassword()"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
                                 <i id="eye-icon" data-lucide="eye" class="w-5 h-5"></i>
                             </button>
                         </div>
                     </div>
-                    <button type="submit" id="auth-submit-btn" class="w-full h-14 green-gradient text-white font-bold rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center">
+                    <button type="submit" id="auth-submit-btn"
+                        class="w-full h-14 green-gradient text-white font-bold rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center">
                         <span id="auth-btn-text">প্রবেশ করুন</span>
                     </button>
                 </form>
 
                 <div class="mt-8 text-center">
-                    <button onclick="window.toggleAuthMode()" id="auth-toggle-btn" class="text-sm font-bold text-slate-500 hover:text-primary transition-colors">
+                    <button onclick="window.toggleAuthMode()" id="auth-toggle-btn"
+                        class="text-sm font-bold text-slate-500 hover:text-primary transition-colors">
                         অ্যাকাউন্ট নেই? নতুন তৈরি করুন
                     </button>
                 </div>
@@ -111,9 +131,11 @@
 
     <!-- App Shell -->
     <div id="app-shell" class="hidden min-h-screen flex flex-col relative overflow-hidden bg-white">
-        <header id="main-header" class="px-6 py-4 flex items-center justify-between sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100">
+        <header id="main-header"
+            class="px-6 py-4 flex items-center justify-between sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100">
             <div class="flex items-center gap-2">
-                <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg" alt="Logo" class="w-9 h-9 rounded-xl shadow-sm border border-slate-100">
+                <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg" alt="Logo"
+                    class="w-9 h-9 rounded-xl shadow-sm border border-slate-100">
                 <h1 class="text-base font-black text-slate-800 tracking-tight">Gmail Father</h1>
             </div>
             <div class="bg-primary/10 px-3 py-1.5 rounded-2xl border border-primary/20 flex items-center gap-2">
@@ -130,21 +152,29 @@
                     <i data-lucide="globe" class="text-primary w-20 h-20 relative z-10"></i>
                 </div>
                 <h2 class="text-2xl font-black mb-4 text-slate-800">কাজ শুরু করুন</h2>
-                <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে ক্লিক করে ব্রাউজার খুলুন। প্রতি জিমেইল ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।</p>
-                <button onclick="window.open('https://accounts.google.com/signup', '_blank')" class="w-full max-w-sm green-gradient text-white py-4 rounded-3xl font-bold shadow-xl active:scale-95 transition-all hover:shadow-primary/40">ব্রাউজার খুলুন</button>
+                <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে
+                    ক্লিক করে ব্রাউজার খুলুন। প্রতি জিমেইল ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।</p>
+                <button onclick="window.open('https://accounts.google.com/signup', '_blank')"
+                    class="w-full max-w-sm green-gradient text-white py-4 rounded-3xl font-bold shadow-xl active:scale-95 transition-all hover:shadow-primary/40">ব্রাউজার
+                    খুলুন</button>
             </div>
 
             <!-- VIEW: Home (Earn) -->
             <div id="view-home" class="view-section px-6 py-8 fade-in">
-                <div class="green-gradient rounded-[2.5rem] p-8 text-white text-center shadow-xl mb-12 relative overflow-hidden">
-                    <div class="absolute -right-6 -top-6 opacity-10"><i data-lucide="zap" class="w-32 h-32 text-white"></i></div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-80 font-display">আপনার ব্যালেন্স</p>
+                <div
+                    class="green-gradient rounded-[2.5rem] p-8 text-white text-center shadow-xl mb-12 relative overflow-hidden">
+                    <div class="absolute -right-6 -top-6 opacity-10"><i data-lucide="zap"
+                            class="w-32 h-32 text-white"></i></div>
+                    <p class="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-80 font-display">আপনার
+                        ব্যালেন্স</p>
                     <h2 id="home-credits" class="text-6xl font-black tracking-tighter">0</h2>
                 </div>
                 <div class="text-center relative">
-                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 font-display">বোনাস সেন্টার</h2>
+                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 font-display">বোনাস
+                        সেন্টার</h2>
                     <div class="relative w-full max-w-xs mx-auto">
-                        <button onclick="window.handleWatchAd()" id="watch-ad-btn" class="w-64 h-64 mx-auto rounded-full bg-white border-8 border-slate-50 flex flex-col items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 group relative z-10">
+                        <button onclick="window.handleWatchAd()" id="watch-ad-btn"
+                            class="w-64 h-64 mx-auto rounded-full bg-white border-8 border-slate-50 flex flex-col items-center justify-center gap-2 shadow-2xl transition-all active:scale-95 group relative z-10">
                             <div class="bg-primary/10 p-5 rounded-full group-hover:bg-primary/20 transition-colors">
                                 <i data-lucide="gift" class="text-primary w-12 h-12"></i>
                             </div>
@@ -153,7 +183,9 @@
                         </button>
                         <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
                     </div>
-                    <p id="ad-status" class="text-[10px] text-slate-400 mt-6 uppercase font-bold tracking-widest font-display">সরাসরি ক্রেডিট সংগ্রহ করুন</p>
+                    <p id="ad-status"
+                        class="text-[10px] text-slate-400 mt-6 uppercase font-bold tracking-widest font-display">সরাসরি
+                        ক্রেডিট সংগ্রহ করুন</p>
                 </div>
             </div>
 
@@ -161,14 +193,17 @@
             <div id="view-leaderboard" class="view-section fade-in">
                 <div class="px-6 pt-8 pb-4">
                     <h1 class="text-2xl font-black text-slate-800 mb-2">লিডারবোর্ড</h1>
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-6">সেরা ১০০ জন ব্যবহারকারী</p>
-                    
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-6">সেরা ১০০ জন ব্যবহারকারী
+                    </p>
+
                     <!-- Podium for Top 3 -->
-                    <div class="flex items-end justify-center gap-3 mb-10 bg-slate-50/50 p-4 rounded-[2rem] border border-slate-100">
+                    <div
+                        class="flex items-end justify-center gap-3 mb-10 bg-slate-50/50 p-4 rounded-[2rem] border border-slate-100">
                         <!-- Rank 2 -->
                         <div class="flex flex-col items-center flex-1">
                             <div class="relative mb-2">
-                                <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-slate-400 text-white text-[9px] font-black px-2 py-0.5 rounded-full">#2</span>
+                                <span
+                                    class="absolute -top-2 left-1/2 -translate-x-1/2 bg-slate-400 text-white text-[9px] font-black px-2 py-0.5 rounded-full">#2</span>
                                 <div class="w-16 h-16 rounded-2xl border-2 border-slate-200 overflow-hidden shadow-md">
                                     <img src="https://i.pravatar.cc/150?u=2" class="w-full h-full object-cover">
                                 </div>
@@ -179,8 +214,10 @@
                         <!-- Rank 1 -->
                         <div class="flex flex-col items-center flex-1 scale-110 -translate-y-2">
                             <div class="relative mb-2">
-                                <i data-lucide="crown" class="absolute -top-6 left-1/2 -translate-x-1/2 text-accent-gold w-6 h-6 fill-current"></i>
-                                <div class="w-20 h-20 rounded-2xl border-4 border-accent-gold overflow-hidden shadow-xl ring-4 ring-accent-gold/10">
+                                <i data-lucide="crown"
+                                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-accent-gold w-6 h-6 fill-current"></i>
+                                <div
+                                    class="w-20 h-20 rounded-2xl border-4 border-accent-gold overflow-hidden shadow-xl ring-4 ring-accent-gold/10">
                                     <img src="https://i.pravatar.cc/150?u=1" class="w-full h-full object-cover">
                                 </div>
                             </div>
@@ -190,7 +227,8 @@
                         <!-- Rank 3 -->
                         <div class="flex flex-col items-center flex-1">
                             <div class="relative mb-2">
-                                <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-orange-400 text-white text-[9px] font-black px-2 py-0.5 rounded-full">#3</span>
+                                <span
+                                    class="absolute -top-2 left-1/2 -translate-x-1/2 bg-orange-400 text-white text-[9px] font-black px-2 py-0.5 rounded-full">#3</span>
                                 <div class="w-16 h-16 rounded-2xl border-2 border-slate-200 overflow-hidden shadow-md">
                                     <img src="https://i.pravatar.cc/150?u=3" class="w-full h-full object-cover">
                                 </div>
@@ -200,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="leaderboard-list" class="px-6 space-y-3 pb-44">
                     <!-- Dynamic Users from Rank 4 to 100 -->
                 </div>
@@ -211,16 +249,24 @@
                 <div class="flex flex-col items-center mb-8">
                     <div class="relative mb-6">
                         <div class="w-32 h-32 rounded-[2rem] p-1 green-gradient shadow-2xl">
-                            <div class="w-full h-full rounded-[1.8rem] border-4 border-white overflow-hidden bg-slate-50 flex items-center justify-center">
-                                <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg" class="w-full h-full object-cover">
+                            <div
+                                class="w-full h-full rounded-[1.8rem] border-4 border-white overflow-hidden bg-slate-50 flex items-center justify-center">
+                                <img src="https://i.ibb.co.com/rKc5Qm12/photo-2026-02-20-02-46-22.jpg"
+                                    class="w-full h-full object-cover">
                             </div>
                         </div>
-                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 green-gradient text-white text-[10px] font-black px-5 py-1.5 rounded-full uppercase tracking-widest shadow-xl border-2 border-white whitespace-nowrap">Level <span id="profile-level">24</span></div>
+                        <div
+                            class="absolute -bottom-3 left-1/2 -translate-x-1/2 green-gradient text-white text-[10px] font-black px-5 py-1.5 rounded-full uppercase tracking-widest shadow-xl border-2 border-white whitespace-nowrap">
+                            Level <span id="profile-level">24</span></div>
                     </div>
-                    <h2 id="profile-name" class="text-2xl font-black tracking-tight text-slate-800 text-center uppercase tracking-widest font-display">...</h2>
-                    <p id="profile-email" class="text-slate-400 font-bold text-[10px] uppercase tracking-widest text-center mt-1">EMAIL@EXAMPLE.COM</p>
+                    <h2 id="profile-name"
+                        class="text-2xl font-black tracking-tight text-slate-800 text-center uppercase tracking-widest font-display">
+                        ...</h2>
+                    <p id="profile-email"
+                        class="text-slate-400 font-bold text-[10px] uppercase tracking-widest text-center mt-1">
+                        EMAIL@EXAMPLE.COM</p>
                 </div>
-                
+
                 <div class="grid grid-cols-2 gap-4 mb-8">
                     <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 text-center">
                         <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">মোট ক্রেডিট</p>
@@ -233,33 +279,45 @@
                 </div>
 
                 <div class="space-y-3">
-                    <button class="w-full p-5 bg-white border border-slate-100 rounded-2xl flex items-center justify-between group hover:border-primary/30 transition-all shadow-sm">
+                    <button
+                        class="w-full p-5 bg-white border border-slate-100 rounded-2xl flex items-center justify-between group hover:border-primary/30 transition-all shadow-sm">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center"><i data-lucide="settings" class="w-5 h-5"></i></div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                                <i data-lucide="settings" class="w-5 h-5"></i></div>
                             <span class="font-bold text-slate-700">Account Settings</span>
                         </div>
                         <i data-lucide="chevron-right" class="text-slate-200 group-hover:text-primary"></i>
                     </button>
-                    <button onclick="window.handleLogout()" class="w-full py-5 rounded-3xl text-red-500 bg-red-50 font-black uppercase text-xs tracking-widest border border-red-100 active:scale-95 transition-all shadow-sm">লগআউট</button>
+                    <button onclick="window.handleLogout()"
+                        class="w-full py-5 rounded-3xl text-red-500 bg-red-50 font-black uppercase text-xs tracking-widest border border-red-100 active:scale-95 transition-all shadow-sm">লগআউট</button>
                 </div>
             </div>
         </main>
 
         <!-- Bottom Navigation -->
-        <nav class="fixed bottom-0 w-full bg-white/95 border-t border-slate-100 px-6 pt-3 pb-10 flex justify-around shadow-2xl backdrop-blur-xl z-50">
-            <button onclick="window.showView('home')" class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="home">
+        <nav
+            class="fixed bottom-0 w-full bg-white/95 border-t border-slate-100 px-6 pt-3 pb-10 flex justify-around shadow-2xl backdrop-blur-xl z-50">
+            <button onclick="window.showView('home')"
+                class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="home">
                 <i data-lucide="zap" class="w-6 h-6 transition-transform group-active:scale-90"></i>
                 <span class="text-[9px] font-bold uppercase tracking-wider font-display">EARN</span>
             </button>
-            <button onclick="window.showView('browser')" class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="browser">
+            <button onclick="window.showView('browser')"
+                class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
+                data-view="browser">
                 <i data-lucide="layout-grid" class="w-6 h-6 transition-transform group-active:scale-90"></i>
                 <span class="text-[9px] font-bold uppercase tracking-wider font-display">WORK</span>
             </button>
-            <button onclick="window.showView('leaderboard')" class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="leaderboard">
+            <button onclick="window.showView('leaderboard')"
+                class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
+                data-view="leaderboard">
                 <i data-lucide="trophy" class="w-6 h-6 transition-transform group-active:scale-90"></i>
                 <span class="text-[9px] font-bold uppercase tracking-wider font-display">RANK</span>
             </button>
-            <button onclick="window.showView('profile')" class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="profile">
+            <button onclick="window.showView('profile')"
+                class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
+                data-view="profile">
                 <i data-lucide="user" class="w-6 h-6 transition-transform group-active:scale-90"></i>
                 <span class="text-[9px] font-bold uppercase tracking-wider font-display">USER</span>
             </button>
@@ -314,7 +372,7 @@
 
         const updateAdStatus = (status) => {
             const el = document.getElementById('ad-status');
-            if(el) el.textContent = status;
+            if (el) el.textContent = status;
         };
 
         window.handleWatchAd = async () => {
@@ -337,10 +395,10 @@
                     adsWatched: currentAds + 1
                 }, { merge: true });
                 updateAdStatus("ক্রেডিট যোগ হয়েছে! +১০");
-            } catch (e) { 
-                console.error("Credit update failed", e); 
+            } catch (e) {
+                console.error("Credit update failed", e);
                 updateAdStatus("আবার চেষ্টা করুন");
-            } finally { 
+            } finally {
                 setTimeout(() => {
                     btn.disabled = false;
                     updateAdStatus("সরাসরি ক্রেডিট সংগ্রহ করুন");
@@ -350,14 +408,14 @@
 
         const generateDemoUsers = () => {
             const list = document.getElementById('leaderboard-list');
-            if(!list || list.children.length > 0) return;
-            
+            if (!list || list.children.length > 0) return;
+
             const names = ["Abir", "Rifat", "Sujon", "Hridoy", "Nila", "Sumaiya", "Tarek", "Faysal", "Mim", "Sakib", "Joy", "Isha", "Milon", "Tanvir", "Sonia", "Kajal", "Imran", "Arif", "Nasir", "Sabina", "Emon", "Rakib", "Faruk", "Bristi", "Jannat", "Sabbir", "Nabila", "Fatema", "Robi", "Asif"];
-            
+
             for (let i = 4; i <= 100; i++) {
                 const name = names[Math.floor(Math.random() * names.length)] + "_" + Math.floor(Math.random() * 999);
                 const credits = 70000 - (i * 650) + Math.floor(Math.random() * 300);
-                
+
                 const item = document.createElement('div');
                 item.className = "flex items-center p-4 rounded-2xl bg-white border border-slate-100 shadow-sm transition-all hover:border-primary/20 group fade-in";
                 item.innerHTML = `
@@ -382,14 +440,14 @@
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('view-active'));
             const target = document.getElementById(`view-${name}`);
             if (target) target.classList.add('view-active');
-            
+
             document.querySelectorAll('.nav-btn').forEach(b => {
                 const active = b.dataset.view === name;
                 b.classList.toggle('text-primary', active);
                 b.classList.toggle('text-slate-300', !active);
             });
-            
-            if(name === 'leaderboard') {
+
+            if (name === 'leaderboard') {
                 setTimeout(generateDemoUsers, 100);
             }
             lucide.createIcons();
@@ -409,11 +467,11 @@
             onAuthStateChanged(auth, user => {
                 document.getElementById('loading-screen').classList.add('opacity-0');
                 setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 500);
-                
+
                 if (user && !user.isAnonymous) {
                     document.getElementById('auth-shell').classList.add('hidden');
                     document.getElementById('app-shell').classList.remove('hidden');
-                    
+
                     const userDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'info');
                     onSnapshot(userDocRef, snap => {
                         if (snap.exists()) {
@@ -423,7 +481,7 @@
                             document.getElementById('stats-credits').textContent = (d.credits || 0).toLocaleString();
                             document.getElementById('stats-ads').textContent = d.adsWatched || 0;
                             document.getElementById('profile-level').textContent = d.level || 24;
-                            
+
                             const userName = d.fullName || user.displayName || 'G-Father User';
                             document.getElementById('profile-name').textContent = userName.toString().toUpperCase();
                             const userEmail = user.email || 'N/A';
@@ -444,11 +502,11 @@
             const errorBox = document.getElementById('auth-error');
             errorBox.classList.add('hidden');
             btn.disabled = true;
-            
+
             try {
                 const email = document.getElementById('auth-email').value;
                 const pass = document.getElementById('auth-password').value;
-                
+
                 if (isSignupMode) {
                     const cred = await createUserWithEmailAndPassword(auth, email, pass);
                     const name = document.getElementById('auth-name').value;
@@ -464,7 +522,7 @@
                 } else {
                     await signInWithEmailAndPassword(auth, email, pass);
                 }
-            } catch (err) { 
+            } catch (err) {
                 errorBox.classList.remove('hidden');
                 document.getElementById('error-message').textContent = "ইমেইল বা পাসওয়ার্ড ভুল হয়েছে।";
                 btn.disabled = false;
@@ -477,4 +535,5 @@
         lucide.createIcons();
     </script>
 </body>
+
 </html>
