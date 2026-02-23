@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bn">
 
 <head>
@@ -154,7 +154,7 @@
                 <h2 class="text-2xl font-black mb-4 text-slate-800">কাজ শুরু করুন</h2>
                 <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে
                     ক্লিক করে ব্রাউজার খুলুন। প্রতি জিমেইল ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।</p>
-                <button onclick="window.open('https://accounts.google.com/signup', '_blank')"
+                <button onclick="window.handleOpenBrowser()"
                     class="w-full max-w-sm green-gradient text-white py-4 rounded-3xl font-bold shadow-xl active:scale-95 transition-all hover:shadow-primary/40">ব্রাউজার
                     খুলুন</button>
             </div>
@@ -179,7 +179,7 @@
                                 <i data-lucide="gift" class="text-primary w-12 h-12"></i>
                             </div>
                             <span class="font-black text-slate-800 text-xl tracking-tight">পয়েন্ট নিন</span>
-                            <span class="text-xs font-bold text-primary uppercase tracking-widest">+১০ ক্রেডিট</span>
+                            <span class="text-xs font-bold text-primary uppercase tracking-widest">+১ ক্রেডিট</span>
                         </button>
                         <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
                     </div>
@@ -284,7 +284,8 @@
                         <div class="flex items-center gap-4">
                             <div
                                 class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                                <i data-lucide="settings" class="w-5 h-5"></i></div>
+                                <i data-lucide="settings" class="w-5 h-5"></i>
+                            </div>
                             <span class="font-bold text-slate-700">Account Settings</span>
                         </div>
                         <i data-lucide="chevron-right" class="text-slate-200 group-hover:text-primary"></i>
@@ -375,34 +376,65 @@
             if (el) el.textContent = status;
         };
 
-        window.handleWatchAd = async () => {
+        window.handleWatchAd = () => {
             const btn = document.getElementById('watch-ad-btn');
             if (!auth.currentUser) return;
             btn.disabled = true;
-            updateAdStatus("ক্রেডিট সংগ্রহ করা হচ্ছে...");
 
+            window.open('https://omg10.com/4/10190531', '_blank');
+            updateAdStatus("5 second wait...");
+
+            let countdown = 5;
+            const timer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    updateAdStatus(countdown + " seconds left...");
+                } else {
+                    clearInterval(timer);
+                    updateAdStatus("Adding credit...");
+                }
+            }, 1000);
+
+            setTimeout(async () => {
+                try {
+                    const userDocRef = doc(db, 'artifacts', appId, 'users', auth.currentUser.uid, 'profile', 'info');
+                    const snap = await getDoc(userDocRef);
+                    let currentCredits = 0;
+                    let currentAds = 0;
+                    if (snap.exists()) {
+                        currentCredits = snap.data().credits || 0;
+                        currentAds = snap.data().adsWatched || 0;
+                    }
+                    await setDoc(userDocRef, {
+                        credits: currentCredits + 1,
+                        adsWatched: currentAds + 1
+                    }, { merge: true });
+                    updateAdStatus("+1 Credit Added!");
+                } catch (e) {
+                    console.error("Credit update failed", e);
+                    updateAdStatus("Try again");
+                } finally {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        updateAdStatus("Click to earn credits");
+                    }, 1500);
+                }
+            }, 5000);
+        };
+
+        window.handleOpenBrowser = async () => {
+            if (!auth.currentUser) return;
             try {
                 const userDocRef = doc(db, 'artifacts', appId, 'users', auth.currentUser.uid, 'profile', 'info');
                 const snap = await getDoc(userDocRef);
-                let currentCredits = 0;
-                let currentAds = 0;
-                if (snap.exists()) {
-                    currentCredits = snap.data().credits || 0;
-                    currentAds = snap.data().adsWatched || 0;
+                const credits = snap.exists() ? (snap.data().credits || 0) : 0;
+                if (credits >= 2) {
+                    window.open('https://accounts.google.com/signup', '_blank');
+                } else {
+                    alert("Need at least 2 credits to make Gmail.\nYour credits: " + credits);
                 }
-                await setDoc(userDocRef, {
-                    credits: currentCredits + 10,
-                    adsWatched: currentAds + 1
-                }, { merge: true });
-                updateAdStatus("ক্রেডিট যোগ হয়েছে! +১০");
             } catch (e) {
-                console.error("Credit update failed", e);
-                updateAdStatus("আবার চেষ্টা করুন");
-            } finally {
-                setTimeout(() => {
-                    btn.disabled = false;
-                    updateAdStatus("সরাসরি ক্রেডিট সংগ্রহ করুন");
-                }, 1000);
+                console.error(e);
             }
         };
 
