@@ -329,7 +329,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, updateDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, updateDoc, onSnapshot, getDoc, increment } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
         // Environment Variables
         const appId = typeof __app_id !== 'undefined' ? __app_id : "gmail-father-v3";
@@ -378,9 +378,13 @@
 
         window.handleWatchAd = () => {
             const btn = document.getElementById('watch-ad-btn');
-            if (!auth.currentUser) return;
+            if (!auth.currentUser) {
+                alert("Please login first!");
+                return;
+            }
             btn.disabled = true;
 
+            // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
             updateAdStatus("5 second wait...");
 
@@ -397,27 +401,23 @@
 
             setTimeout(async () => {
                 try {
-                    const userDocRef = doc(db, 'artifacts', appId, 'users', auth.currentUser.uid, 'profile', 'info');
-                    const snap = await getDoc(userDocRef);
-                    let currentCredits = 0;
-                    let currentAds = 0;
-                    if (snap.exists()) {
-                        currentCredits = snap.data().credits || 0;
-                        currentAds = snap.data().adsWatched || 0;
-                    }
+                    const uid = auth.currentUser.uid;
+                    const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
+                    // Use increment for atomic add
                     await setDoc(userDocRef, {
-                        credits: currentCredits + 1,
-                        adsWatched: currentAds + 1
+                        credits: increment(1),
+                        adsWatched: increment(1)
                     }, { merge: true });
                     updateAdStatus("+1 Credit Added!");
+                    console.log("Credit added successfully for uid:", uid);
                 } catch (e) {
-                    console.error("Credit update failed", e);
-                    updateAdStatus("Try again");
+                    console.error("Credit update failed:", e.code, e.message);
+                    updateAdStatus("Error: " + e.message);
                 } finally {
                     setTimeout(() => {
                         btn.disabled = false;
                         updateAdStatus("Click to earn credits");
-                    }, 1500);
+                    }, 2000);
                 }
             }, 5000);
         };
