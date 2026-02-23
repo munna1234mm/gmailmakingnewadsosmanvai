@@ -75,7 +75,8 @@
                         class="w-full h-full object-cover">
                 </div>
                 <h1 class="text-3xl font-black text-primary">Gmail Father</h1>
-                <p id="auth-desc" class="text-slate-500 text-sm font-medium">আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ
+                <p id="auth-desc" data-i18n="authDesc" class="text-slate-500 text-sm font-medium">আপনার অ্যাকাউন্ট তৈরি
+                    করার বিশ্বস্ত অ্যাপ
                 </p>
             </div>
 
@@ -152,10 +153,12 @@
                     <div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full"></div>
                     <i data-lucide="globe" class="text-primary w-20 h-20 relative z-10"></i>
                 </div>
-                <h2 id="gmail-tool-title" class="text-2xl font-black mb-4 text-slate-800">Gmail Free Tool</h2>
-                <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে
+                <h2 id="gmail-tool-title" data-i18n="gmailTitle" class="text-2xl font-black mb-4 text-slate-800">Gmail
+                    Free Tool</h2>
+                <p id="gmail-tool-desc" data-i18n="gmailDesc"
+                    class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে
                     ক্লিক করে ব্রাউজার খুলুন। প্রতি জিমেইল ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।</p>
-                <button onclick="window.handleOpenBrowser()"
+                <button onclick="window.handleOpenBrowser()" id="gmail-create-btn" data-i18n="gmailBtn"
                     class="w-full max-w-sm green-gradient text-white py-4 rounded-3xl font-bold shadow-xl active:scale-95 transition-all hover:shadow-primary/40">Gmail
                     Create</button>
             </div>
@@ -166,12 +169,14 @@
                     class="green-gradient rounded-[2.5rem] p-8 text-white text-center shadow-xl mb-12 relative overflow-hidden">
                     <div class="absolute -right-6 -top-6 opacity-10"><i data-lucide="zap"
                             class="w-32 h-32 text-white"></i></div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-80 font-display">আপনার
+                    <p id="balance-label" data-i18n="balance"
+                        class="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-80 font-display">আপনার
                         ব্যালেন্স</p>
                     <h2 id="home-credits" class="text-6xl font-black tracking-tighter">0</h2>
                 </div>
                 <div class="text-center relative">
-                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 font-display">বোনাস
+                    <h2 id="bonus-center-label" data-i18n="bonusCenter"
+                        class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 font-display">বোনাস
                         সেন্টার</h2>
                     <div class="relative w-full max-w-xs mx-auto">
                         <button onclick="window.handleWatchAd()" id="watch-ad-btn"
@@ -179,13 +184,14 @@
                             <div class="bg-primary/10 p-5 rounded-full group-hover:bg-primary/20 transition-colors">
                                 <i data-lucide="gift" class="text-primary w-12 h-12"></i>
                             </div>
-                            <span class="font-black text-slate-800 text-xl tracking-tight">পয়েন্ট নিন</span>
-                            <span id="earn-btn-sub" class="text-xs font-bold text-primary uppercase tracking-widest">+১
-                                ক্রেডিট</span>
+                            <span id="earn-btn-label" data-i18n="earnBtn"
+                                class="font-black text-slate-800 text-xl tracking-tight">পয়েন্ট নিন</span>
+                            <span id="earn-btn-sub" data-i18n="earnSub"
+                                class="text-xs font-bold text-primary uppercase tracking-widest">+১ ক্রেডিট</span>
                         </button>
                         <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
                     </div>
-                    <p id="ad-status"
+                    <p id="ad-status" data-i18n="adStatus"
                         class="text-[10px] text-slate-400 mt-6 uppercase font-bold tracking-widest font-display">সরাসরি
                         ক্রেডিট সংগ্রহ করুন</p>
                 </div>
@@ -194,8 +200,10 @@
             <!-- VIEW: Leaderboard -->
             <div id="view-leaderboard" class="view-section fade-in">
                 <div class="px-6 pt-8 pb-4">
-                    <h1 id="leader-title" class="text-2xl font-black text-slate-800 mb-2">লিডারবোর্ড</h1>
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-6">সেরা ১০০ জন ব্যবহারকারী
+                    <h1 id="leader-title" data-i18n="leaderTitle" class="text-2xl font-black text-slate-800 mb-2">
+                        লিডারবোর্ড</h1>
+                    <p id="leader-sub" data-i18n="leaderSub"
+                        class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-6">সেরা ১০০ জন ব্যবহারকারী
                     </p>
 
                     <!-- Podium for Top 3 -->
@@ -306,7 +314,7 @@
                                 Русский</button>
                         </div>
                     </div>
-                    <button id="logout-btn" onclick="window.handleLogout()"
+                    <button id="logout-btn" data-i18n="logout" onclick="window.handleLogout()"
                         class="w-full py-5 rounded-3xl text-red-500 bg-red-50 font-black uppercase text-xs tracking-widest border border-red-100 active:scale-95 transition-all shadow-sm">লগআউট</button>
                 </div>
             </div>
@@ -685,61 +693,64 @@
             currentLang = lang;
             localStorage.setItem('lang', lang);
             const t = translations[lang];
-            // Header
-            document.querySelectorAll('.nav-earn').forEach(e => e.textContent = t.navEarn);
-            document.querySelectorAll('.nav-work').forEach(e => e.textContent = t.navWork);
-            document.querySelectorAll('.nav-rank').forEach(e => e.textContent = t.navRank);
-            document.querySelectorAll('.nav-user').forEach(e => e.textContent = t.navUser);
-            // Earn view
-            const bc = document.getElementById('bonus-center-label');
-            if (bc) bc.textContent = t.bonusCenter;
-            const eb = document.getElementById('earn-btn-label');
-            if (eb) eb.textContent = t.earnBtn;
-            const es = document.getElementById('earn-btn-sub');
-            if (es) es.textContent = t.earnSub;
-            const bal = document.getElementById('balance-label');
-            if (bal) bal.textContent = t.balance;
-            // Browser view
-            const gt = document.getElementById('gmail-tool-title');
-            if (gt) gt.textContent = t.gmailTitle;
-            const gd = document.getElementById('gmail-tool-desc');
-            if (gd) gd.textContent = t.gmailDesc;
-            const gb = document.getElementById('gmail-create-btn');
-            if (gb) gb.textContent = t.gmailBtn;
-            // Leaderboard
-            const lt = document.getElementById('leader-title');
-            if (lt) lt.textContent = t.leaderTitle;
-            const ls = document.getElementById('leader-sub');
-            if (ls) ls.textContent = t.leaderSub;
-            // Profile
-            const tc = document.getElementById('total-credits-label');
-            if (tc) tc.textContent = t.totalCredits;
-            const ac = document.getElementById('activity-label');
-            if (ac) ac.textContent = t.activity;
-            const lo = document.getElementById('logout-btn');
-            if (lo) lo.textContent = t.logout;
-            // Auth
-            const ad = document.getElementById('auth-desc');
-            if (ad) ad.textContent = t.authDesc;
-            // Language button styles
-            ['bn', 'en', 'ru'].forEach(l => {
-                const btn = document.getElementById('lang-' + l);
-                if (!btn) return;
-                if (l === lang) {
-                    btn.className = 'text-xs font-black px-2 py-1 rounded-lg border border-primary/30 bg-primary/10 text-primary transition-all';
-                } else {
-                    btn.className = 'text-xs font-black px-2 py-1 rounded-lg border border-slate-200 text-slate-400 transition-all';
-                }
+            if (!t) return;
+
+            // Helper: update element text by id
+            const set = (id, key) => {
+                const el = document.getElementById(id);
+                if (el && t[key] !== undefined) el.textContent = t[key];
+            };
+
+            // data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.textContent = t[key];
             });
-            // Update isSignupMode-aware texts
+
+            // Nav buttons
+            set('nav-earn-text', 'navEarn');
+            set('nav-work-text', 'navWork');
+            set('nav-rank-text', 'navRank');
+            set('nav-user-text', 'navUser');
+
+            // Earn view
+            set('balance-label', 'balance');
+            set('bonus-center-label', 'bonusCenter');
+            set('earn-btn-label', 'earnBtn');
+            set('earn-btn-sub', 'earnSub');
+            set('ad-status', 'adStatus');
+
+            // Browser/Work view
+            set('gmail-tool-title', 'gmailTitle');
+            set('gmail-tool-desc', 'gmailDesc');
+            set('gmail-create-btn', 'gmailBtn');
+
+            // Leaderboard
+            set('leader-title', 'leaderTitle');
+            set('leader-sub', 'leaderSub');
+
+            // Profile
+            set('total-credits-label', 'totalCredits');
+            set('activity-label', 'activity');
+            set('logout-btn', 'logout');
+
+            // Auth section
+            set('auth-desc', 'authDesc');
             const authTitle = document.getElementById('auth-title');
             if (authTitle) authTitle.textContent = isSignupMode ? t.signupTitle : t.loginTitle;
             const authBtnText = document.getElementById('auth-btn-text');
             if (authBtnText) authBtnText.textContent = isSignupMode ? t.signupBtn : t.loginBtn;
             const authToggleBtn = document.getElementById('auth-toggle-btn');
             if (authToggleBtn) authToggleBtn.textContent = isSignupMode ? t.toggleLogin : t.toggleSignup;
-            const adStatus = document.getElementById('ad-status');
-            if (adStatus) adStatus.textContent = t.adStatus;
+
+            // Language buttons: highlight active
+            ['bn', 'en', 'ru'].forEach(l => {
+                const btn = document.getElementById('lang-' + l);
+                if (!btn) return;
+                btn.className = l === lang
+                    ? 'flex-1 py-2 text-xs font-black rounded-xl border border-primary/30 bg-primary/10 text-primary transition-all'
+                    : 'flex-1 py-2 text-xs font-black rounded-xl border border-slate-200 text-slate-400 transition-all';
+            });
         };
 
         startApp();
