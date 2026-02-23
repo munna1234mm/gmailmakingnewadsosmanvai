@@ -75,7 +75,7 @@
                         class="w-full h-full object-cover">
                 </div>
                 <h1 class="text-3xl font-black text-primary">Gmail Father</h1>
-                <p class="text-slate-500 text-sm font-medium">আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ</p>
+                <p id="auth-desc" class="text-slate-500 text-sm font-medium">আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ</p>
             </div>
 
             <div class="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-border-light">
@@ -137,6 +137,16 @@
                     class="w-9 h-9 rounded-xl shadow-sm border border-slate-100">
                 <h1 class="text-base font-black text-slate-800 tracking-tight">Gmail Father</h1>
             </div>
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-1">
+                <button onclick="window.setLang('bn')" id="lang-bn"
+                    class="text-xs font-black px-2 py-1 rounded-lg border border-primary/30 bg-primary/10 text-primary transition-all">বাং</button>
+                <button onclick="window.setLang('en')" id="lang-en"
+                    class="text-xs font-black px-2 py-1 rounded-lg border border-slate-200 text-slate-400 transition-all">EN</button>
+                <button onclick="window.setLang('ru')" id="lang-ru"
+                    class="text-xs font-black px-2 py-1 rounded-lg border border-slate-200 text-slate-400 transition-all">RU</button>
+            </div>
+
             <div class="bg-primary/10 px-3 py-1.5 rounded-2xl border border-primary/20 flex items-center gap-2">
                 <i data-lucide="database" class="w-3.5 h-3.5 text-primary fill-current"></i>
                 <span id="header-credits" class="text-sm font-black text-primary">0</span>
@@ -150,7 +160,7 @@
                     <div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full"></div>
                     <i data-lucide="globe" class="text-primary w-20 h-20 relative z-10"></i>
                 </div>
-                <h2 class="text-2xl font-black mb-4 text-slate-800">Gmail Free Tool</h2>
+                <h2 id="gmail-tool-title" class="text-2xl font-black mb-4 text-slate-800">Gmail Free Tool</h2>
                 <p class="text-slate-500 text-center mb-8 text-sm leading-relaxed">জিমেইল তৈরি করার জন্য নিচের বাটনে
                     ক্লিক করে ব্রাউজার খুলুন। প্রতি জিমেইল ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।</p>
                 <button onclick="window.handleOpenBrowser()"
@@ -178,7 +188,7 @@
                                 <i data-lucide="gift" class="text-primary w-12 h-12"></i>
                             </div>
                             <span class="font-black text-slate-800 text-xl tracking-tight">পয়েন্ট নিন</span>
-                            <span class="text-xs font-bold text-primary uppercase tracking-widest">+১ ক্রেডিট</span>
+                            <span id="earn-btn-sub" class="text-xs font-bold text-primary uppercase tracking-widest">+১ ক্রেডিট</span>
                         </button>
                         <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse"></div>
                     </div>
@@ -191,7 +201,7 @@
             <!-- VIEW: Leaderboard -->
             <div id="view-leaderboard" class="view-section fade-in">
                 <div class="px-6 pt-8 pb-4">
-                    <h1 class="text-2xl font-black text-slate-800 mb-2">লিডারবোর্ড</h1>
+                    <h1 id="leader-title" class="text-2xl font-black text-slate-800 mb-2">লিডারবোর্ড</h1>
                     <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-6">সেরা ১০০ জন ব্যবহারকারী
                     </p>
 
@@ -268,11 +278,11 @@
 
                 <div class="grid grid-cols-2 gap-4 mb-8">
                     <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">মোট ক্রেডিট</p>
+                        <p id="total-credits-label" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">মোট ক্রেডিট</p>
                         <p id="stats-credits" class="text-lg font-black text-primary">0</p>
                     </div>
                     <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">অ্যাক্টিভিটি</p>
+                        <p id="activity-label" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">অ্যাক্টিভিটি</p>
                         <p id="stats-ads" class="text-lg font-black text-slate-800">0</p>
                     </div>
                 </div>
@@ -301,25 +311,25 @@
             <button onclick="window.showView('home')"
                 class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all" data-view="home">
                 <i data-lucide="zap" class="w-6 h-6 transition-transform group-active:scale-90"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider font-display">EARN</span>
+                <span id="nav-earn-text" class="nav-earn text-[9px] font-bold uppercase tracking-wider font-display">EARN</span>
             </button>
             <button onclick="window.showView('browser')"
                 class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
                 data-view="browser">
                 <i data-lucide="layout-grid" class="w-6 h-6 transition-transform group-active:scale-90"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider font-display">WORK</span>
+                <span id="nav-work-text" class="nav-work text-[9px] font-bold uppercase tracking-wider font-display">WORK</span>
             </button>
             <button onclick="window.showView('leaderboard')"
                 class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
                 data-view="leaderboard">
                 <i data-lucide="trophy" class="w-6 h-6 transition-transform group-active:scale-90"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider font-display">RANK</span>
+                <span id="nav-rank-text" class="nav-rank text-[9px] font-bold uppercase tracking-wider font-display">RANK</span>
             </button>
             <button onclick="window.showView('profile')"
                 class="nav-btn flex flex-col items-center gap-1.5 text-slate-300 group transition-all"
                 data-view="profile">
                 <i data-lucide="user" class="w-6 h-6 transition-transform group-active:scale-90"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider font-display">USER</span>
+                <span id="nav-user-text" class="nav-user text-[9px] font-bold uppercase tracking-wider font-display">USER</span>
             </button>
         </nav>
     </div>
@@ -567,8 +577,165 @@
 
         window.handleLogout = () => signOut(auth).then(() => location.reload());
 
+        // ── TRANSLATIONS ──────────────────────────────────────────
+        const translations = {
+            bn: {
+                balance: 'আপনার ব্যালেন্স',
+                bonusCenter: 'বোনাস সেন্টার',
+                earnBtn: 'পয়েন্ট নিন',
+                earnSub: '+১ ক্রেডিট',
+                adStatus: 'সরাসরি ক্রেডিট সংগ্রহ করুন',
+                gmailTitle: 'Gmail Free Tool',
+                gmailDesc: 'জিমেইল তৈরি করার জন্য নিচের বাটনে ক্লিক করুন। প্রতি ক্রিয়েশনে পাবেন আকর্ষণীয় রিওয়ার্ড।',
+                gmailBtn: 'Gmail Create',
+                leaderTitle: 'লিডারবোর্ড',
+                leaderSub: 'সেরা ১০০ জন ব্যবহারকারী',
+                totalCredits: 'মোট ক্রেডিট',
+                activity: 'অ্যাক্টিভিটি',
+                logout: 'লগআউট',
+                navEarn: 'EARN', navWork: 'WORK', navRank: 'RANK', navUser: 'USER',
+                loginTitle: 'লগইন করুন',
+                signupTitle: 'অ্যাকাউন্ট খুলুন',
+                loginBtn: 'প্রবেশ করুন',
+                signupBtn: 'রেজিস্ট্রেশন',
+                toggleLogin: 'ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন',
+                toggleSignup: 'অ্যাকাউন্ট নেই? নতুন তৈরি করুন',
+                namePlaceholder: 'নাম লিখুন',
+                emailLabel: 'ইমেইল ঠিকানা',
+                passLabel: 'পাসওয়ার্ড',
+                nameLabel: 'আপনার নাম',
+                authDesc: 'আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ',
+                wrongPass: 'ইমেইল বা পাসওয়ার্ড ভুল হয়েছে।',
+                needCredits: 'Gmail তৈরি করতে কমপক্ষে ২ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: ',
+            },
+            en: {
+                balance: 'Your Balance',
+                bonusCenter: 'Bonus Center',
+                earnBtn: 'Get Points',
+                earnSub: '+1 Credit',
+                adStatus: 'Click to earn credits',
+                gmailTitle: 'Gmail Free Tool',
+                gmailDesc: 'Click the button below to create a Gmail account. Earn rewards for each creation.',
+                gmailBtn: 'Gmail Create',
+                leaderTitle: 'Leaderboard',
+                leaderSub: 'Top 100 Users',
+                totalCredits: 'Total Credits',
+                activity: 'Activity',
+                logout: 'LOGOUT',
+                navEarn: 'EARN', navWork: 'WORK', navRank: 'RANK', navUser: 'USER',
+                loginTitle: 'Login',
+                signupTitle: 'Create Account',
+                loginBtn: 'Sign In',
+                signupBtn: 'Register',
+                toggleLogin: 'Already have an account? Login',
+                toggleSignup: "Don't have an account? Create one",
+                namePlaceholder: 'Enter your name',
+                emailLabel: 'Email Address',
+                passLabel: 'Password',
+                nameLabel: 'Your Name',
+                authDesc: 'The trusted app for creating your account',
+                wrongPass: 'Incorrect email or password.',
+                needCredits: 'You need at least 2 credits to create Gmail.\nYour credits: ',
+            },
+            ru: {
+                balance: 'Ваш баланс',
+                bonusCenter: 'Бонус центр',
+                earnBtn: 'Получить очки',
+                earnSub: '+1 Кредит',
+                adStatus: 'Нажмите для получения кредитов',
+                gmailTitle: 'Gmail Free Tool',
+                gmailDesc: 'Нажмите кнопку ниже, чтобы создать аккаунт Gmail. Зарабатывайте награды за каждое создание.',
+                gmailBtn: 'Создать Gmail',
+                leaderTitle: 'Таблица лидеров',
+                leaderSub: 'Топ 100 пользователей',
+                totalCredits: 'Всего кредитов',
+                activity: 'Активность',
+                logout: 'ВЫХОД',
+                navEarn: 'ЗАРАБОТОК', navWork: 'РАБОТА', navRank: 'РЕЙТИНГ', navUser: 'ПРОФИЛЬ',
+                loginTitle: 'Войти',
+                signupTitle: 'Создать аккаунт',
+                loginBtn: 'Войти',
+                signupBtn: 'Регистрация',
+                toggleLogin: 'Уже есть аккаунт? Войти',
+                toggleSignup: 'Нет аккаунта? Создать',
+                namePlaceholder: 'Введите имя',
+                emailLabel: 'Электронная почта',
+                passLabel: 'Пароль',
+                nameLabel: 'Ваше имя',
+                authDesc: 'Надёжное приложение для создания аккаунта',
+                wrongPass: 'Неверный email или пароль.',
+                needCredits: 'Вам нужно минимум 2 кредита для создания Gmail.\nВаши кредиты: ',
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'bn';
+
+        window.setLang = (lang) => {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            const t = translations[lang];
+            // Header
+            document.querySelectorAll('.nav-earn').forEach(e => e.textContent = t.navEarn);
+            document.querySelectorAll('.nav-work').forEach(e => e.textContent = t.navWork);
+            document.querySelectorAll('.nav-rank').forEach(e => e.textContent = t.navRank);
+            document.querySelectorAll('.nav-user').forEach(e => e.textContent = t.navUser);
+            // Earn view
+            const bc = document.getElementById('bonus-center-label');
+            if (bc) bc.textContent = t.bonusCenter;
+            const eb = document.getElementById('earn-btn-label');
+            if (eb) eb.textContent = t.earnBtn;
+            const es = document.getElementById('earn-btn-sub');
+            if (es) es.textContent = t.earnSub;
+            const bal = document.getElementById('balance-label');
+            if (bal) bal.textContent = t.balance;
+            // Browser view
+            const gt = document.getElementById('gmail-tool-title');
+            if (gt) gt.textContent = t.gmailTitle;
+            const gd = document.getElementById('gmail-tool-desc');
+            if (gd) gd.textContent = t.gmailDesc;
+            const gb = document.getElementById('gmail-create-btn');
+            if (gb) gb.textContent = t.gmailBtn;
+            // Leaderboard
+            const lt = document.getElementById('leader-title');
+            if (lt) lt.textContent = t.leaderTitle;
+            const ls = document.getElementById('leader-sub');
+            if (ls) ls.textContent = t.leaderSub;
+            // Profile
+            const tc = document.getElementById('total-credits-label');
+            if (tc) tc.textContent = t.totalCredits;
+            const ac = document.getElementById('activity-label');
+            if (ac) ac.textContent = t.activity;
+            const lo = document.getElementById('logout-btn');
+            if (lo) lo.textContent = t.logout;
+            // Auth
+            const ad = document.getElementById('auth-desc');
+            if (ad) ad.textContent = t.authDesc;
+            // Language button styles
+            ['bn', 'en', 'ru'].forEach(l => {
+                const btn = document.getElementById('lang-' + l);
+                if (!btn) return;
+                if (l === lang) {
+                    btn.className = 'text-xs font-black px-2 py-1 rounded-lg border border-primary/30 bg-primary/10 text-primary transition-all';
+                } else {
+                    btn.className = 'text-xs font-black px-2 py-1 rounded-lg border border-slate-200 text-slate-400 transition-all';
+                }
+            });
+            // Update isSignupMode-aware texts
+            const authTitle = document.getElementById('auth-title');
+            if (authTitle) authTitle.textContent = isSignupMode ? t.signupTitle : t.loginTitle;
+            const authBtnText = document.getElementById('auth-btn-text');
+            if (authBtnText) authBtnText.textContent = isSignupMode ? t.signupBtn : t.loginBtn;
+            const authToggleBtn = document.getElementById('auth-toggle-btn');
+            if (authToggleBtn) authToggleBtn.textContent = isSignupMode ? t.toggleLogin : t.toggleSignup;
+            const adStatus = document.getElementById('ad-status');
+            if (adStatus) adStatus.textContent = t.adStatus;
+        };
+
         startApp();
         lucide.createIcons();
+        // Apply saved language on load
+        setTimeout(() => window.setLang(currentLang), 300);
+
     </script>
 </body>
 
