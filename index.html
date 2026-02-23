@@ -428,12 +428,17 @@
                 const snap = await getDoc(userDocRef);
                 const credits = snap.exists() ? (snap.data().credits || 0) : 0;
                 if (credits >= 2) {
+                    // Deduct 2 credits atomically
+                    await setDoc(userDocRef, {
+                        credits: increment(-2)
+                    }, { merge: true });
                     window.open('https://accounts.google.com/signup', '_blank');
                 } else {
-                    alert("Need at least 2 credits to make Gmail.\nYour credits: " + credits);
+                    alert("Gmail তৈরি করতে কমপক্ষে ২ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: " + credits);
                 }
             } catch (e) {
                 console.error(e);
+                alert("Error: " + e.message);
             }
         };
 
