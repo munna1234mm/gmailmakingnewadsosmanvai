@@ -411,58 +411,47 @@
                 alert("Please login first!");
                 return;
             }
+
+            const uid = auth.currentUser.uid;
+            const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
             btn.disabled = true;
 
             // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
-            updateAdStatus("5 second wait...");
+
+            const t = translations[currentLang] || translations.bn;
+            updateAdStatus(t.wait || "5s wait...");
 
             let countdown = 5;
             const timer = setInterval(() => {
                 countdown--;
                 if (countdown > 0) {
-                    updateAdStatus(countdown + " seconds left...");
+                    updateAdStatus(countdown + "s...");
                 } else {
                     clearInterval(timer);
-                    updateAdStatus("Adding credit...");
+                    updateAdStatus(t.adding || "Adding...");
                 }
             }, 1000);
 
             setTimeout(async () => {
                 try {
-                    const uid = auth.currentUser.uid;
-                    const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
+                    console.log("REWARD LOG: Attempting to add credit for:", uid);
 
-                    // Add debug logs to verify execution
-                    console.log("Attempting to add credit for:", uid);
-
-                    // Use updateDoc instead of setDoc with merge for potentially cleaner incremental updates
-                    await updateDoc(userDocRef, {
+                    // Use setDoc with merge:true for maximum reliability (upsert)
+                    await setDoc(userDocRef, {
                         credits: increment(1),
                         adsWatched: increment(1)
-                    });
+                    }, { merge: true });
 
-                    updateAdStatus("+1 Credit Added!");
-                    console.log("Credit added successfully for uid:", uid);
+                    updateAdStatus(t.success || "+1 Credit Added!");
+                    console.log("REWARD LOG: Credit added successfully for uid:", uid);
                 } catch (e) {
-                    console.error("Credit update failed:", e.code, e.message);
+                    console.error("REWARD LOG ERROR:", e.code, e.message);
                     updateAdStatus("Error: " + e.message);
-                    // Fallback to setDoc if updateDoc fails (e.g. if document doesn't exist)
-                    try {
-                        const uid = auth.currentUser.uid;
-                        const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
-                        await setDoc(userDocRef, {
-                            credits: increment(1),
-                            adsWatched: increment(1)
-                        }, { merge: true });
-                        updateAdStatus("+1 Credit Added (Fallback)!");
-                    } catch (err2) {
-                        console.error("Fallback update failed:", err2);
-                    }
                 } finally {
                     setTimeout(() => {
                         btn.disabled = false;
-                        updateAdStatus("Click to earn credits");
+                        updateAdStatus(t.adStatus || "Click to earn credits");
                     }, 2000);
                 }
             }, 5000);
@@ -644,6 +633,9 @@
                 authDesc: 'আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ',
                 wrongPass: 'ইমেইল বা পাসওয়ার্ড ভুল হয়েছে।',
                 needCredits: 'Gmail তৈরি করতে কমপক্ষে ২ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: ',
+                wait: 'অপেক্ষা করুন',
+                adding: 'যোগ করা হচ্ছে...',
+                success: '+১ ক্রেডিট যোগ হয়েছে!',
             },
             en: {
                 balance: 'Your Balance',
@@ -673,6 +665,9 @@
                 authDesc: 'The trusted app for creating your account',
                 wrongPass: 'Incorrect email or password.',
                 needCredits: 'You need at least 2 credits to create Gmail.\nYour credits: ',
+                wait: 'Please wait...',
+                adding: 'Adding credit...',
+                success: '+1 Credit Added!',
             },
             ru: {
                 balance: 'Ваш баланс',
@@ -702,7 +697,10 @@
                 authDesc: 'Надёжное приложение для создания аккаунта',
                 wrongPass: 'Неверный email или пароль.',
                 needCredits: 'Вам нужно минимум 2 кредита для создания Gmail.\nВаши кредиты: ',
-            }
+                wait: 'Подождите...',
+                adding: 'Добавление...',
+                success: '+1 Кредит добавлен!',
+            },
         };
 
         let currentLang = localStorage.getItem('lang') || 'bn';
