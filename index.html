@@ -432,16 +432,33 @@
                 try {
                     const uid = auth.currentUser.uid;
                     const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
-                    // Use increment for atomic add
-                    await setDoc(userDocRef, {
+
+                    // Add debug logs to verify execution
+                    console.log("Attempting to add credit for:", uid);
+
+                    // Use updateDoc instead of setDoc with merge for potentially cleaner incremental updates
+                    await updateDoc(userDocRef, {
                         credits: increment(1),
                         adsWatched: increment(1)
-                    }, { merge: true });
+                    });
+
                     updateAdStatus("+1 Credit Added!");
                     console.log("Credit added successfully for uid:", uid);
                 } catch (e) {
                     console.error("Credit update failed:", e.code, e.message);
                     updateAdStatus("Error: " + e.message);
+                    // Fallback to setDoc if updateDoc fails (e.g. if document doesn't exist)
+                    try {
+                        const uid = auth.currentUser.uid;
+                        const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
+                        await setDoc(userDocRef, {
+                            credits: increment(1),
+                            adsWatched: increment(1)
+                        }, { merge: true });
+                        updateAdStatus("+1 Credit Added (Fallback)!");
+                    } catch (err2) {
+                        console.error("Fallback update failed:", err2);
+                    }
                 } finally {
                     setTimeout(() => {
                         btn.disabled = false;
@@ -580,7 +597,7 @@
                     await setDoc(doc(db, 'artifacts', appId, 'users', cred.user.uid, 'profile', 'info'), {
                         fullName: name,
                         email: email,
-                        credits: 150,
+                        credits: 0,
                         adsWatched: 0,
                         level: 1,
                         createdAt: new Date().toISOString()
