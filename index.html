@@ -409,8 +409,64 @@
         let adTimer = null;
         let isRewarding = false;
 
+        const processReward = async () => {
+            if (isRewarding || adClickTime === 0) return;
+            const elapsed = Math.floor((Date.now() - adClickTime) / 1000);
+
+            if (elapsed >= 5) {
+                isRewarding = true;
+                if (adTimer) clearInterval(adTimer);
+                adTimer = null;
+
+                const t = translations[currentLang] || translations.bn;
+                updateAdStatus(t.adding || "Adding...");
+
+                try {
+                    const uid = auth.currentUser?.uid;
+                    if (!uid) throw new Error("User not logged in");
+
+                    console.log("REWARD LOG: Processing reward for:", uid);
+                    const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
+
+                    await setDoc(userDocRef, {
+                        credits: increment(1),
+                        adsWatched: increment(1)
+                    }, { merge: true });
+
+                    updateAdStatus(t.success || "+1 Credit Added!");
+                    console.log("REWARD LOG: Success for:", uid);
+
+                    // Reset click time to prevent double reward
+                    adClickTime = 0;
+                } catch (e) {
+                    console.error("REWARD LOG ERROR:", e);
+                    updateAdStatus("Error: " + (e.message || "Failed to update"));
+                    isRewarding = false; // Allow retry on error
+                } finally {
+                    const btn = document.getElementById('watch-ad-btn');
+                    setTimeout(() => {
+                        if (btn) btn.disabled = false;
+                        updateAdStatus(t.adStatus || "Click to earn credits");
+                        isRewarding = false;
+                    }, 3000);
+                }
+            } else {
+                updateAdStatus((5 - elapsed) + "s...");
+            }
+        };
+
+        // Singleton listeners for mobile/app backgrounding
+        const handleVisibilityTrigger = () => {
+            if (!document.hidden && adClickTime > 0 && !isRewarding) {
+                console.log("REWARD LOG: App regained focus, checking reward...");
+                processReward();
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityTrigger);
+        window.addEventListener('focus', handleVisibilityTrigger);
+
         window.handleWatchAd = () => {
-            if (isRewarding) return;
+            if (isRewarding || adClickTime > 0) return;
             const btn = document.getElementById('watch-ad-btn');
 
             if (!auth.currentUser) {
@@ -418,63 +474,19 @@
                 return;
             }
 
-            const uid = auth.currentUser.uid;
-            const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
             btn.disabled = true;
-
             const t = translations[currentLang] || translations.bn;
+
+            console.log("REWARD LOG: Ad clicked at", new Date().toISOString());
             adClickTime = Date.now();
-            isRewarding = false; // Reset flag for new attempt
+            isRewarding = false;
 
             // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
             updateAdStatus(t.wait || "5s wait...");
 
             if (adTimer) clearInterval(adTimer);
-
-            const processReward = async () => {
-                if (isRewarding) return;
-                const elapsed = Math.floor((Date.now() - adClickTime) / 1000);
-
-                if (elapsed >= 5) {
-                    isRewarding = true;
-                    clearInterval(adTimer);
-                    updateAdStatus(t.adding || "Adding...");
-
-                    try {
-                        console.log("REWARD LOG: Processing reward for:", uid);
-                        await setDoc(userDocRef, {
-                            credits: increment(1),
-                            adsWatched: increment(1)
-                        }, { merge: true });
-
-                        updateAdStatus(t.success || "+1 Credit Added!");
-                        console.log("REWARD LOG: Success for:", uid);
-                    } catch (e) {
-                        console.error("REWARD LOG ERROR:", e);
-                        updateAdStatus("Error: " + e.message);
-                    } finally {
-                        setTimeout(() => {
-                            btn.disabled = false;
-                            updateAdStatus(t.adStatus || "Click to earn credits");
-                            isRewarding = false;
-                        }, 2000);
-                    }
-                } else {
-                    updateAdStatus((5 - elapsed) + "s...");
-                }
-            };
-
             adTimer = setInterval(processReward, 1000);
-
-            // Visibility change trigger (Mobile optimization)
-            const handleVisibility = () => {
-                if (!document.hidden && adClickTime > 0 && !isRewarding) {
-                    processReward();
-                }
-            };
-            document.addEventListener('visibilitychange', handleVisibility, { once: false });
-            window.addEventListener('focus', handleVisibility, { once: false });
         };
 
         window.handleOpenBrowser = async () => {
