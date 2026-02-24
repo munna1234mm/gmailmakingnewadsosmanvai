@@ -405,8 +405,14 @@
             if (el) el.textContent = status;
         };
 
+        let adClickTime = 0;
+        let adTimer = null;
+        let isRewarding = false;
+
         window.handleWatchAd = () => {
+            if (isRewarding) return;
             const btn = document.getElementById('watch-ad-btn');
+
             if (!auth.currentUser) {
                 alert("Please login first!");
                 return;
@@ -416,45 +422,59 @@
             const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
             btn.disabled = true;
 
+            const t = translations[currentLang] || translations.bn;
+            adClickTime = Date.now();
+            isRewarding = false; // Reset flag for new attempt
+
             // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
-
-            const t = translations[currentLang] || translations.bn;
             updateAdStatus(t.wait || "5s wait...");
 
-            let countdown = 5;
-            const timer = setInterval(() => {
-                countdown--;
-                if (countdown > 0) {
-                    updateAdStatus(countdown + "s...");
-                } else {
-                    clearInterval(timer);
+            if (adTimer) clearInterval(adTimer);
+
+            const processReward = async () => {
+                if (isRewarding) return;
+                const elapsed = Math.floor((Date.now() - adClickTime) / 1000);
+
+                if (elapsed >= 5) {
+                    isRewarding = true;
+                    clearInterval(adTimer);
                     updateAdStatus(t.adding || "Adding...");
+
+                    try {
+                        console.log("REWARD LOG: Processing reward for:", uid);
+                        await setDoc(userDocRef, {
+                            credits: increment(1),
+                            adsWatched: increment(1)
+                        }, { merge: true });
+
+                        updateAdStatus(t.success || "+1 Credit Added!");
+                        console.log("REWARD LOG: Success for:", uid);
+                    } catch (e) {
+                        console.error("REWARD LOG ERROR:", e);
+                        updateAdStatus("Error: " + e.message);
+                    } finally {
+                        setTimeout(() => {
+                            btn.disabled = false;
+                            updateAdStatus(t.adStatus || "Click to earn credits");
+                            isRewarding = false;
+                        }, 2000);
+                    }
+                } else {
+                    updateAdStatus((5 - elapsed) + "s...");
                 }
-            }, 1000);
+            };
 
-            setTimeout(async () => {
-                try {
-                    console.log("REWARD LOG: Attempting to add credit for:", uid);
+            adTimer = setInterval(processReward, 1000);
 
-                    // Use setDoc with merge:true for maximum reliability (upsert)
-                    await setDoc(userDocRef, {
-                        credits: increment(1),
-                        adsWatched: increment(1)
-                    }, { merge: true });
-
-                    updateAdStatus(t.success || "+1 Credit Added!");
-                    console.log("REWARD LOG: Credit added successfully for uid:", uid);
-                } catch (e) {
-                    console.error("REWARD LOG ERROR:", e.code, e.message);
-                    updateAdStatus("Error: " + e.message);
-                } finally {
-                    setTimeout(() => {
-                        btn.disabled = false;
-                        updateAdStatus(t.adStatus || "Click to earn credits");
-                    }, 2000);
+            // Visibility change trigger (Mobile optimization)
+            const handleVisibility = () => {
+                if (!document.hidden && adClickTime > 0 && !isRewarding) {
+                    processReward();
                 }
-            }, 5000);
+            };
+            document.addEventListener('visibilitychange', handleVisibility, { once: false });
+            window.addEventListener('focus', handleVisibility, { once: false });
         };
 
         window.handleOpenBrowser = async () => {
