@@ -408,38 +408,52 @@
         let adClickTime = 0;
         let adTimer = null;
         let isRewarding = false;
+        let capturedUid = null;
 
-        const processReward = async () => {
+        const processReward = async (isManual = false) => {
             if (isRewarding || adClickTime === 0) return;
+
             const elapsed = Math.floor((Date.now() - adClickTime) / 1000);
 
             if (elapsed >= 5) {
                 isRewarding = true;
-                if (adTimer) clearInterval(adTimer);
-                adTimer = null;
+                if (adTimer) {
+                    clearInterval(adTimer);
+                    adTimer = null;
+                }
 
                 const t = translations[currentLang] || translations.bn;
                 updateAdStatus(t.adding || "Adding...");
 
                 try {
-                    const uid = auth.currentUser?.uid;
-                    if (!uid) throw new Error("User not logged in");
+                    const uid = capturedUid || auth.currentUser?.uid;
+                    if (!uid) {
+                        alert("Error: User session not found. Please log in again.");
+                        isRewarding = false;
+                        return;
+                    }
 
                     console.log("REWARD LOG: Processing reward for:", uid);
                     const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
 
+                    // Use setDoc with merge: true for the most reliable upsert
                     await setDoc(userDocRef, {
                         credits: increment(1),
                         adsWatched: increment(1)
                     }, { merge: true });
 
                     updateAdStatus(t.success || "+1 Credit Added!");
-                    console.log("REWARD LOG: Success for:", uid);
 
                     // Reset click time to prevent double reward
                     adClickTime = 0;
+                    capturedUid = null;
+
+                    // Only alert on manual if needed, or always alert for debugging
+                    if (isManual) alert("Credit added successfully!");
+
                 } catch (e) {
                     console.error("REWARD LOG ERROR:", e);
+                    alert("Update Failed: " + e.message + "\nCode: " + (e.code || "unknown"));
                     updateAdStatus("Error: " + (e.message || "Failed to update"));
                     isRewarding = false; // Allow retry on error
                 } finally {
@@ -448,6 +462,7 @@
                         if (btn) btn.disabled = false;
                         updateAdStatus(t.adStatus || "Click to earn credits");
                         isRewarding = false;
+                        adClickTime = 0; // Final cleanup
                     }, 3000);
                 }
             } else {
@@ -458,7 +473,7 @@
         // Singleton listeners for mobile/app backgrounding
         const handleVisibilityTrigger = () => {
             if (!document.hidden && adClickTime > 0 && !isRewarding) {
-                console.log("REWARD LOG: App regained focus, checking reward...");
+                console.log("REWARD LOG: Focus regained, checking eligibility...");
                 processReward();
             }
         };
@@ -466,7 +481,14 @@
         window.addEventListener('focus', handleVisibilityTrigger);
 
         window.handleWatchAd = () => {
-            if (isRewarding || adClickTime > 0) return;
+            if (isRewarding || adClickTime > 0) {
+                // If it's been more than 5s, let them manually trigger
+                if (Date.now() - adClickTime > 5000) {
+                    processReward(true);
+                }
+                return;
+            }
+
             const btn = document.getElementById('watch-ad-btn');
 
             if (!auth.currentUser) {
@@ -474,19 +496,21 @@
                 return;
             }
 
+            capturedUid = auth.currentUser.uid;
             btn.disabled = true;
             const t = translations[currentLang] || translations.bn;
 
-            console.log("REWARD LOG: Ad clicked at", new Date().toISOString());
             adClickTime = Date.now();
             isRewarding = false;
+
+            console.log("REWARD LOG: Ad started for UID:", capturedUid);
 
             // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
             updateAdStatus(t.wait || "5s wait...");
 
             if (adTimer) clearInterval(adTimer);
-            adTimer = setInterval(processReward, 1000);
+            adTimer = setInterval(() => processReward(false), 1000);
         };
 
         window.handleOpenBrowser = async () => {
