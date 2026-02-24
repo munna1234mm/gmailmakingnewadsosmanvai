@@ -405,15 +405,16 @@
             if (el) el.textContent = status;
         };
 
-        let adClickTime = 0;
         let adTimer = null;
         let isRewarding = false;
-        let capturedUid = null;
 
-        const processReward = async (isManual = false) => {
-            if (isRewarding || adClickTime === 0) return;
+        const processReward = async () => {
+            if (isRewarding) return;
 
-            const elapsed = Math.floor((Date.now() - adClickTime) / 1000);
+            const adStartTime = localStorage.getItem('adStartTime');
+            if (!adStartTime) return;
+
+            const elapsed = Math.floor((Date.now() - parseInt(adStartTime)) / 1000);
 
             if (elapsed >= 5) {
                 isRewarding = true;
@@ -426,43 +427,35 @@
                 updateAdStatus(t.adding || "Adding...");
 
                 try {
-                    const uid = capturedUid || auth.currentUser?.uid;
+                    const uid = auth.currentUser?.uid;
                     if (!uid) {
-                        alert("Error: User session not found. Please log in again.");
+                        // If not logged in but has pending, wait for login
                         isRewarding = false;
                         return;
                     }
 
-                    console.log("REWARD LOG: Processing reward for:", uid);
+                    console.log("REWARD LOG: Processing persistent reward for:", uid);
                     const userDocRef = doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info');
 
-                    // Use setDoc with merge: true for the most reliable upsert
                     await setDoc(userDocRef, {
                         credits: increment(1),
                         adsWatched: increment(1)
                     }, { merge: true });
 
+                    localStorage.removeItem('adStartTime');
                     updateAdStatus(t.success || "+1 Credit Added!");
-
-                    // Reset click time to prevent double reward
-                    adClickTime = 0;
-                    capturedUid = null;
-
-                    // Only alert on manual if needed, or always alert for debugging
-                    if (isManual) alert("Credit added successfully!");
+                    alert("সম্পন্ন: ১ ক্রেডিট যোগ করা হয়েছে!");
 
                 } catch (e) {
                     console.error("REWARD LOG ERROR:", e);
-                    alert("Update Failed: " + e.message + "\nCode: " + (e.code || "unknown"));
-                    updateAdStatus("Error: " + (e.message || "Failed to update"));
-                    isRewarding = false; // Allow retry on error
+                    updateAdStatus("Error: " + (e.message || "Failed"));
+                    isRewarding = false;
                 } finally {
                     const btn = document.getElementById('watch-ad-btn');
                     setTimeout(() => {
                         if (btn) btn.disabled = false;
                         updateAdStatus(t.adStatus || "Click to earn credits");
                         isRewarding = false;
-                        adClickTime = 0; // Final cleanup
                     }, 3000);
                 }
             } else {
@@ -471,46 +464,41 @@
         };
 
         // Singleton listeners for mobile/app backgrounding
-        const handleVisibilityTrigger = () => {
-            if (!document.hidden && adClickTime > 0 && !isRewarding) {
-                console.log("REWARD LOG: Focus regained, checking eligibility...");
+        const handleCheckTrigger = () => {
+            if (!document.hidden && localStorage.getItem('adStartTime')) {
                 processReward();
             }
         };
-        document.addEventListener('visibilitychange', handleVisibilityTrigger);
-        window.addEventListener('focus', handleVisibilityTrigger);
+        document.addEventListener('visibilitychange', handleCheckTrigger);
+        window.addEventListener('focus', handleCheckTrigger);
 
         window.handleWatchAd = () => {
-            if (isRewarding || adClickTime > 0) {
-                // If it's been more than 5s, let them manually trigger
-                if (Date.now() - adClickTime > 5000) {
-                    processReward(true);
-                }
+            if (isRewarding || localStorage.getItem('adStartTime')) {
+                processReward();
+                return;
+            }
+
+            if (!auth.currentUser) {
+                alert("দয়া করে লগইন করুন!");
                 return;
             }
 
             const btn = document.getElementById('watch-ad-btn');
-
-            if (!auth.currentUser) {
-                alert("Please login first!");
-                return;
-            }
-
-            capturedUid = auth.currentUser.uid;
             btn.disabled = true;
             const t = translations[currentLang] || translations.bn;
 
-            adClickTime = Date.now();
+            // Persistent state for HopWeb restarts
+            localStorage.setItem('adStartTime', Date.now().toString());
             isRewarding = false;
 
-            console.log("REWARD LOG: Ad started for UID:", capturedUid);
+            alert("বিজ্ঞাপন ওপেন হচ্ছে, ৫ সেকেন্ড অপেক্ষা করে ব্যাকে আসুন।");
 
             // Open ad link
             window.open('https://omg10.com/4/10190531', '_blank');
             updateAdStatus(t.wait || "5s wait...");
 
             if (adTimer) clearInterval(adTimer);
-            adTimer = setInterval(() => processReward(false), 1000);
+            adTimer = setInterval(processReward, 1000);
         };
 
         window.handleOpenBrowser = async () => {
@@ -617,6 +605,8 @@
                         }
                     });
                     window.showView('home');
+                    // Check for pending rewards on load
+                    setTimeout(processReward, 2000);
                 } else {
                     document.getElementById('auth-shell').classList.remove('hidden');
                     document.getElementById('app-shell').classList.add('hidden');
