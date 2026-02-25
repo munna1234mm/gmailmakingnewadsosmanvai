@@ -507,14 +507,14 @@
                 const userDocRef = doc(db, 'artifacts', appId, 'users', auth.currentUser.uid, 'profile', 'info');
                 const snap = await getDoc(userDocRef);
                 const credits = snap.exists() ? (snap.data().credits || 0) : 0;
-                if (credits >= 2) {
-                    // Deduct 2 credits atomically
+                if (credits >= 5) {
+                    // Deduct 5 credits atomically
                     await setDoc(userDocRef, {
-                        credits: increment(-2)
+                        credits: increment(-5)
                     }, { merge: true });
                     window.open('https://accounts.google.com/signup', '_blank');
                 } else {
-                    alert("Gmail তৈরি করতে কমপক্ষে ২ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: " + credits);
+                    alert("Gmail তৈরি করতে কমপক্ষে ৫ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: " + credits);
                 }
             } catch (e) {
                 console.error(e);
@@ -678,7 +678,7 @@
                 nameLabel: 'আপনার নাম',
                 authDesc: 'আপনার অ্যাকাউন্ট তৈরি করার বিশ্বস্ত অ্যাপ',
                 wrongPass: 'ইমেইল বা পাসওয়ার্ড ভুল হয়েছে।',
-                needCredits: 'Gmail তৈরি করতে কমপক্ষে ২ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: ',
+                needCredits: 'Gmail তৈরি করতে কমপক্ষে ৫ ক্রেডিট লাগবে।\nআপনার বর্তমান ক্রেডিট: ',
                 wait: 'অপেক্ষা করুন',
                 adding: 'যোগ করা হচ্ছে...',
                 success: '+১ ক্রেডিট যোগ হয়েছে!',
@@ -710,7 +710,7 @@
                 nameLabel: 'Your Name',
                 authDesc: 'The trusted app for creating your account',
                 wrongPass: 'Incorrect email or password.',
-                needCredits: 'You need at least 2 credits to create Gmail.\nYour credits: ',
+                needCredits: 'You need at least 5 credits to create Gmail.\nYour credits: ',
                 wait: 'Please wait...',
                 adding: 'Adding credit...',
                 success: '+1 Credit Added!',
@@ -742,7 +742,7 @@
                 nameLabel: 'Ваше имя',
                 authDesc: 'Надёжное приложение для создания аккаунта',
                 wrongPass: 'Неверный email или пароль.',
-                needCredits: 'Вам нужно минимум 2 кредита для создания Gmail.\nВаши кредиты: ',
+                needCredits: 'Вам нужно минимум 5 кредитов для создания Gmail.\nВаши кредиты: ',
                 wait: 'Подождите...',
                 adding: 'Добавление...',
                 success: '+1 Кредит добавлен!',
